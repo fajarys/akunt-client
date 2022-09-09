@@ -26,10 +26,10 @@
                   <td>
                     <div class="btn-group">
                       <router-link :to="{ name: 'transaction.edit', params: { id: 1 } }"
-                        class="btn btn-sm btn-outline-info">
+                        class="btn btn-sm btn-outline-info rounded">
                         Edit
                       </router-link>
-                      <button class="btn btn-sm btn-outline-danger">Delete</button>
+                      <button class="btn btn-sm btn-outline-danger ms-2 rounded">Delete</button>
                     </div>
                   </td>
                 </tr>
@@ -44,9 +44,18 @@
 
 <script>
 import axios from 'axios'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 export default {
+  setup() {
+    //reactive state
+    let transaction = ref([]);
 
+
+    onMounted(() => {
+      //get data from api endpoint
+      axios.get()
+    })
+  }
 }
 </script>
