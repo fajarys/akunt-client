@@ -19,17 +19,18 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Income</td>
-                  <td>50000</td>
-                  <td>Revenue</td>
+                <tr v-for="(transaction, index) in transactions.data" :key="index">
+                  <td>{{ transaction.title }}</td>
+                  <td>{{ transaction.amount }}</td>
+                  <td>{{ transaction.type }}</td>
                   <td>
                     <div class="btn-group">
-                      <router-link :to="{ name: 'transaction.edit', params: { id: 1 } }"
+                      <router-link :to="{ name: 'transaction.edit', params: { id: transaction.id  } }"
                         class="btn btn-sm btn-outline-info rounded">
                         Edit
                       </router-link>
-                      <button class="btn btn-sm btn-outline-danger ms-2 rounded">Delete</button>
+                      <button class="btn btn-sm btn-outline-danger ms-2 rounded"
+                        @click.prevent="destroy(transaction.id, index)">Delete</button>
                     </div>
                   </td>
                 </tr>
@@ -49,13 +50,35 @@ import { onMounted, ref } from 'vue'
 export default {
   setup() {
     //reactive state
-    let transaction = ref([]);
+    let transactions = ref([]);
 
 
     onMounted(() => {
       //get data from api endpoint
-      axios.get()
-    })
+      axios.get('http://127.0.0.1:8000/api/transaction')
+
+        .then((result) => {
+          transactions.value = result.data
+        }).catch((err) => {
+          console.log(err.response)
+        });
+    });
+
+    function destroy(id, index) {
+      axios.delete(
+        `http://127.0.0.1:8000/api/transaction/${id}`
+      )
+        .then(() => {
+          transactions.value.data.splice(index, 1)
+        }).catch((err) => {
+          console.log(err.response.data)
+        });
+    }
+
+    return {
+      transactions,
+      destroy
+    }
   }
 }
 </script>
