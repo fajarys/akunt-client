@@ -52,7 +52,7 @@
 
 <script>
 import { reactive, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import axios from 'axios';
 export default {
   setup() {
@@ -66,11 +66,12 @@ export default {
 
     const validation = ref([]);
 
-    const router = useRoute();
+    const router = useRouter();
 
     function store() {
       axios.post(
         'http://127.0.0.1:8000/api/transaction',
+        transaction
       )
         .then(() => {
           router.push({
