@@ -5,11 +5,11 @@
         <router-link :to="{ name: 'transaction.create' }" class="btn btn-primary btn-sm rounded shadow mb-3">Add
         </router-link>
         <div class="card rounded shadow">
-          <div class="card-header">
+          <div class="card-header fw-bold">
             Transaction List
           </div>
           <div class="card-body">
-            <table class="table">
+            <table class="table text-center">
               <thead>
                 <tr>
                   <th>Title</th>
